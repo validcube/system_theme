@@ -22,47 +22,49 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return SystemThemeBuilder(builder: (context, accent) {
+    return SystemThemeBuilder(builder: (context, color) {
       final colors = [
-        accent.lightest,
-        accent.lighter,
-        accent.light,
-        accent.accent,
-        accent.dark,
-        accent.darker,
-        accent.darkest,
+        color.lightest,
+        color.lighter,
+        color.light,
+        color.accent,
+        color.dark,
+        color.darker,
+        color.darkest,
       ];
       return Scaffold(
-        body: Column(children: [
-          Text(
-              'Accent color: ${defaultTargetPlatform.supportsAccentColor ? 'supported' : 'not supported'}'),
-          ...colors.map((color) {
-            return Expanded(
-              child: Container(
-                color: color,
-                alignment: Alignment.center,
-                child: Text(
-                  [
-                        'Lightest',
-                        'Lighter',
-                        'Light',
-                        'Default',
-                        'Dark',
-                        'Darker',
-                        'Darkest',
-                      ][colors.indexOf(color)] +
-                      '\n${color.toHex()}',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        color: color.computeLuminance() >= 0.5
-                            ? Colors.black
-                            : Colors.white,
-                      ),
-                  textAlign: TextAlign.center,
+        body: SafeArea(
+          child: Column(children: [
+            Text(
+                'Accent color: ${defaultTargetPlatform.supportsAccentColor ? 'supported' : 'not supported'}'),
+            ...colors.map((color) {
+              return Expanded(
+                child: Container(
+                  color: color,
+                  alignment: Alignment.center,
+                  child: Text(
+                    [
+                          'Lightest',
+                          'Lighter',
+                          'Light',
+                          'Default',
+                          'Dark',
+                          'Darker',
+                          'Darkest',
+                        ][colors.indexOf(color)] +
+                        '\n${color.toHex()}',
+                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          color: color.computeLuminance() >= 0.5
+                              ? Colors.black
+                              : Colors.white,
+                        ),
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
-            );
-          }).toList(),
-        ]),
+              );
+            }).toList(),
+          ]),
+        ),
       );
     });
   }
